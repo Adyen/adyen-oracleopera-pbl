@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  app:
+    image: public.ecr.aws/f8h5l8q1/adyen/hospitality/api:devlatest
+    container_name: adyen_app
+    environment:
+      - ACCEPT_LICENSE=Y
+    depends_on:
+      - migrations
+    volumes:
+      - ./appsettings.App.json:/app/appsettings.json
+      - ./appsettings.App.json:/app/appsettings.Development.json
+    networks:
+      - system-internal-network

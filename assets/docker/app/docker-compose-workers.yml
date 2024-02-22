@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  worker:
+    image: public.ecr.aws/f8h5l8q1/adyen/hospitality/workers:devlatest
+    container_name: adyen_worker
+    depends_on:
+      - migrations
+    volumes:
+      - ./appsettings.Worker.json:/app/appsettings.json
+      - ./appsettings.Worker.json:/app/appsettings.Development.json
+    networks:
+      - system-internal-network

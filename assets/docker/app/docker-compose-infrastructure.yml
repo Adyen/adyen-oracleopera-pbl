@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  systemdb:
+    image: postgres:12
+    container_name: system_database
+    env_file:
+      - .env
+    volumes:
+      - systemdata:/var/lib/postgresql/data
+    networks:
+      - system-internal-network
+  elasticmq-native:
+    container_name: system_queue
+    image: softwaremill/elasticmq-native:1.5.7
+    volumes:
+      - type: bind
+        source: ./custom.conf
+        target: /opt/elasticmq.conf
+    networks:
+      - system-internal-network
+volumes:
+  systemdata:
+networks:
+  system-internal-network:
+    name: internal-network
+    driver: bridge
+    external: false

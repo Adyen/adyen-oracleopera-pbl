@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  migrations:
+    image: public.ecr.aws/f8h5l8q1/adyen/hospitality/migrations:devlatest
+    container_name: adyen_migrations
+    environment:
+      - POSTGRES_USER=master
+      - POSTGRES_PASSWORD=%{{POSTGRES_PASSWORD}}%
+      - POSTGRES_DB=%{{POSTGRES_DB}}%
+    env_file:
+      - .env
+    command:
+      [
+        "Server=systemdb;Port=5432;Database=%{{POSTGRES_DB}}%;UserId=master;Password=%{{POSTGRES_PASSWORD}}%"
+      ]
+    networks:
+      - system-internal-network
