@@ -6,8 +6,11 @@ services:
     container_name: adyen_worker
     depends_on:
       - migrations
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
     volumes:
       - ./appsettings.Worker.json:/app/appsettings.json
       - ./appsettings.Worker.json:/app/appsettings.Development.json
+      - ./logs_workers:/app/logs
     networks:
       - system-internal-network

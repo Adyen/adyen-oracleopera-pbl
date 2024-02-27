@@ -6,10 +6,12 @@ services:
     container_name: adyen_app
     environment:
       - ACCEPT_LICENSE=Y
+      - ASPNETCORE_ENVIRONMENT=Production
     depends_on:
       - migrations
     volumes:
       - ./appsettings.App.json:/app/appsettings.json
       - ./appsettings.App.json:/app/appsettings.Development.json
+      - ./logs_app:/app/logs
     networks:
       - system-internal-network
