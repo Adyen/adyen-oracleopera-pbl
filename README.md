@@ -95,6 +95,10 @@ present in the configuration file:
 
 You can access applicative logs by mounting the /app/logs directory of the container.
 
+#### Uploaded Files
+
+You should mount /app/files directory to prevent data loss upon container restart, as it contains uploaded files.
+
 ### [Workers docker image](https://gallery.ecr.aws/f8h5l8q1/adyen/hospitality/workers)
 
 This docker image defines a background service that processes payment notifications. Containers based upon this image
