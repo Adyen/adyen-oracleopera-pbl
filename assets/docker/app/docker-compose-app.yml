@@ -8,7 +8,8 @@ services:
       - ACCEPT_LICENSE=Y
       - ASPNETCORE_ENVIRONMENT=Production
     depends_on:
-      - migrations
+      migrations:
+        condition: service_completed_successfully
     volumes:
       - ./appsettings.App.json:/app/appsettings.json
       - ./appsettings.App.json:/app/appsettings.Development.json

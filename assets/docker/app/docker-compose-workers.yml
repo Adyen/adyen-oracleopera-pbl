@@ -5,7 +5,8 @@ services:
     image: public.ecr.aws/f8h5l8q1/adyen/hospitality/workers:devlatest
     container_name: adyen_worker
     depends_on:
-      - migrations
+      migrations:
+        condition: service_completed_successfully
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
     volumes:
