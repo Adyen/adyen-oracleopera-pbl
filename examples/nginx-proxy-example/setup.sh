@@ -3,7 +3,7 @@
 echo "Create directory structure..."
 
 mkdir -p "app/ad-nginx"
-cd "app" || exit
+cd "app" || exit 1
 mkdir "ad-app"
 cd "../"
 
@@ -11,7 +11,7 @@ echo "Prepare app docker files..."
 cp -rT "./assets/docker/app/" "./app/ad-app/"
 cp -rT "./assets/docker/nginx/" "./app/ad-nginx/"
 
-cd "app" || exit
+cd "app" || exit 1
 
 validate_db_name() {
     if [[ $1 =~ ^[a-zA-Z_][a-zA-Z0-9_]*$ ]]; then
@@ -62,20 +62,20 @@ find . -type f -exec sed -i "s|%{{POSTGRES_PASSWORD}}%|$POSTGRES_PASSWORD|g; s|%
 echo "Docker files prepared successfully."
 
 echo "Starting up the application..."
-cd "ad-app" || exit
-docker compose -f ./docker-compose-infrastructure.yml -f ./docker-compose-migrations.yml -f ./docker-compose-app.yml -f ./docker-compose-workers.yml up -d
+cd "ad-app" || exit 1
+docker compose -f ./docker-compose-infrastructure.yml -f ./docker-compose-migrations.yml -f ./docker-compose-app.yml -f ./docker-compose-workers.yml up -d || exit 1
 
-cd  "../ad-nginx/nginx/" || exit
+cd  "../ad-nginx/nginx/" || exit 1
 mkdir "conf"
 cp ./template/website.conf ./conf/"$DOMAIN".conf
 docker compose up -d
 
-cd ../certbot || exit
+cd ../certbot || exit 1
 
 echo "Setting up the certificate..."
 docker compose run --rm certbot certonly --webroot --webroot-path /var/www/certbot/ -d $DOMAIN
 
-cd ../nginx || exit
+cd ../nginx || exit 1
 docker compose down
 cat ./template/ssl.conf > ./conf/"$DOMAIN".conf
 docker compose up -d
