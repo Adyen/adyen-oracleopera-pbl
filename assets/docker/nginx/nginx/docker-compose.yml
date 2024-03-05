@@ -8,15 +8,11 @@ services:
       - 80:80
       - 443:443
     networks:
-      - webout
       - internal-network
     volumes:
       - ./conf/:/etc/nginx/conf.d/:ro
       - ../certbot/www:/var/www/certbot/:ro
       - ../certbot/conf/:/etc/nginx/ssl/:ro
 networks:
-  webout:
-    external: false
-    driver: bridge
   internal-network:
     external: true
