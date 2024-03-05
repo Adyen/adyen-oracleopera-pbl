@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   app:
-    image: public.ecr.aws/f8h5l8q1/adyen/hospitality/api:devlatest
+    image: public.ecr.aws/f8h5l8q1/adyen/hospitality/api:latest
     container_name: adyen_app
     environment:
       - ACCEPT_LICENSE=Y

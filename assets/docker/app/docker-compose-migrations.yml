@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   migrations:
-    image: public.ecr.aws/f8h5l8q1/adyen/hospitality/migrations:devlatest
+    image: public.ecr.aws/f8h5l8q1/adyen/hospitality/migrations:latest
     container_name: adyen_migrations
     depends_on:
       systemdb:

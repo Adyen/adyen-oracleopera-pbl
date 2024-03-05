@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   worker:
-    image: public.ecr.aws/f8h5l8q1/adyen/hospitality/workers:devlatest
+    image: public.ecr.aws/f8h5l8q1/adyen/hospitality/workers:latest
     container_name: adyen_worker
     depends_on:
       migrations:
