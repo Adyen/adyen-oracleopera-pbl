@@ -202,7 +202,7 @@ Steps:
 
 To update the application you have to:
 
-* Execute migrations be running the _migrations_ image.
+* Execute migrations by running the _migrations_ image.
 * Start the application and worker containers with newly released images. (Observe the Docker repository for more
   information.)
 
