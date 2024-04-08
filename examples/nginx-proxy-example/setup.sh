@@ -31,6 +31,24 @@ validate_password() {
     fi
 }
 
+validate_from_email() {
+    if [[ ${#1} -ge 1 ]]; then
+        return 0
+    else
+        echo "Invalid email. A valid email cannot be empty."
+        return 1
+    fi
+}
+
+validate_environment() {
+    if [[ $1 == "dev" || $1 == "live" ]]; then
+        return 0
+    else
+        echo "Invalid environment. Please specify 'dev' or 'live'."
+        return 1
+    fi
+}
+
 validate_app_url() {
     if [[ $1 =~ ^https://[a-zA-Z0-9./-]+$ ]]; then
         return 0
@@ -50,6 +68,16 @@ while ! validate_password "$POSTGRES_PASSWORD"; do
     read -rp "Enter password: " POSTGRES_PASSWORD
 done
 
+read -rp "Enter outgoing email: " FROM_EMAIL
+while ! validate_from_email "$FROM_EMAIL"; do
+    read -rp "Enter outgoing email: " FROM_EMAIL
+done
+
+read -rp "Select application environment [Development, Production]: " APP_ENVIRONMENT
+while ! validate_environment "$APP_ENVIRONMENT"; do
+    read -rp "Select application environment [Development, Production]: " APP_ENVIRONMENT
+done
+
 read -rp "Enter Application URL (https://...): " APP_URL
 while ! validate_app_url "$APP_URL"; do
     read -rp "Enter Application URL (https://...): " APP_URL
@@ -57,7 +85,15 @@ done
 
 DOMAIN=$(echo "$APP_URL" | cut -d'/' -f3)
 
-find . -type f -exec sed -i "s|%{{POSTGRES_PASSWORD}}%|$POSTGRES_PASSWORD|g; s|%{{POSTGRES_DB}}%|$POSTGRES_DB|g; s|%{{DOMAIN}}%|$DOMAIN|g; s|%{{APP_URL}}%|$APP_URL|g" {} +
+if [[ "$APP_ENVIRONMENT" == "Development" ]]; then
+    APP_KEY="b57a184f-0a96-40fd-b1ae-3dd598eed66a"
+elif [[ "$APP_ENVIRONMENT" == "Production" ]]; then
+    APP_KEY="b57a184f-0a96-40fd-b1ae-3dd598eed66a"
+else
+    echo "Invalid APP_ENVIRONMENT. It must be either 'Development' or 'Production'."
+fi
+
+find . -type f -exec sed -i "s|%{{POSTGRES_PASSWORD}}%|$POSTGRES_PASSWORD|g; s|%{{POSTGRES_DB}}%|$POSTGRES_DB|g; s|%{{DOMAIN}}%|$DOMAIN|g; s|%{{APP_ENVIRONMENT}}%|$APP_ENVIRONMENT|g; s|%{{FROM_EMAIL}}%|$FROM_EMAIL|g; s|%{{APP_KEY}}%|$APP_KEY|g; s|%{{APP_URL}}%|$APP_URL|g" {} +
 
 echo "Docker files prepared successfully."
 

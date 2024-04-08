@@ -8,7 +8,7 @@ services:
       migrations:
         condition: service_completed_successfully
     environment:
-      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_ENVIRONMENT=%{{APP_ENVIRONMENT}}%
     volumes:
       - ./appsettings.Worker.json:/app/appsettings.json
       - ./appsettings.Worker.json:/app/appsettings.Development.json

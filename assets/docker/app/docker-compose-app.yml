@@ -6,7 +6,7 @@ services:
     container_name: adyen_app
     environment:
       - ACCEPT_LICENSE=Y
-      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_ENVIRONMENT=%{{APP_ENVIRONMENT}}%
     depends_on:
       migrations:
         condition: service_completed_successfully
