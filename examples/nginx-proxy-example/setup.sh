@@ -41,10 +41,10 @@ validate_from_email() {
 }
 
 validate_environment() {
-    if [[ $1 == "dev" || $1 == "live" ]]; then
+    if [[ $1 == "Development" || $1 == "Production" ]]; then
         return 0
     else
-        echo "Invalid environment. Please specify 'dev' or 'live'."
+        echo "Invalid environment. Please specify 'Development' or 'Production'."
         return 1
     fi
 }
