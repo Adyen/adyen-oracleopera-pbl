@@ -88,7 +88,7 @@ DOMAIN=$(echo "$APP_URL" | cut -d'/' -f3)
 if [[ "$APP_ENVIRONMENT" == "Development" ]]; then
     APP_KEY="b57a184f-0a96-40fd-b1ae-3dd598eed66a"
 elif [[ "$APP_ENVIRONMENT" == "Production" ]]; then
-    APP_KEY="b57a184f-0a96-40fd-b1ae-3dd598eed66a"
+    APP_KEY="4b85cd60-4c6d-4cb5-afe7-cc2e820df219"
 else
     echo "Invalid APP_ENVIRONMENT. It must be either 'Development' or 'Production'."
 fi
