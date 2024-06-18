@@ -210,6 +210,12 @@ To update the application you have to:
 
 You will receive an update notification banner in the application when the new version is released.
 
+# Quick deploy to AWS
+
+You can automatically deploy the solution using the AWS [Cloud Formation](https://aws.amazon.com/cloudformation/)!
+
+[CLICK TO DEPLOY TO AWS!](https://eu-central-1.console.aws.amazon.com/cloudformation/home?region=eu-central-1#/stacks/create/review?templateURL=https://adyen-pbl-template.s3.eu-central-1.amazonaws.com/V-20240617-AdyenPayByLink.template.json)
+
 # Support
 
 Please consult the [help portal](https://help.adyen.com/en_US).
